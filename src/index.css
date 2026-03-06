@@ -9,6 +9,14 @@ body {
   background-color: #0c0c0c;
 }
 
+/* Hide default cursor globally — every single element */
+*, *::before, *::after,
+html, body, a, button, input, textarea, select,
+img, div, span, section, nav, header, footer,
+[role="button"], [class*="scroll"], canvas {
+  cursor: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }

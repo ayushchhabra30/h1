@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Lenis from 'lenis';
 import Landing from './Landing';
 import Petals from './components/Petals';
+import CursorSparkle from './components/CursorSparkle';
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,9 @@ function App() {
 
   return (
     <div className="w-full relative">
+      {/* Layer 0: Cursor sparkle trail */}
+      <CursorSparkle />
+
       {/* Layer 1: Particles */}
       <Petals />
 

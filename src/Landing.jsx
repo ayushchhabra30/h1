@@ -209,14 +209,14 @@ function HomeParallax() {
               transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(calc(-50% + ${mx * -18}px), ${my * -18}px)`),
             }}
           />
-          {/* Trees — combined mouse + scroll parallax so they move up as you scroll */}
+          {/* Trees — scroll parallax only (no mouse parallax to avoid moving with cursor) */}
           <animated.img src="/trees.png" alt="Trees" className="hs-parallax-img"
             style={{
               zIndex: 20,
               opacity: 0.85,
               transform: to(
-                [heroSpring.mx, heroSpring.my, spring1.shift],
-                (mx, my, s) => `translate(${mx * 20}px, calc(${my * 20}px + ${s}px))`
+                [spring1.shift],
+                (s) => `translate(0px, ${s}px)`
               ),
             }}
           />
