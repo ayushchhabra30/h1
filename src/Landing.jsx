@@ -350,14 +350,21 @@ function HomeParallax() {
     refs[to]?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // 💥 THE FIX: This kills horizontal movement on mobile!
+  const pMult = isMobile ? 0 : 1;
+
   return (
     <>
       <style>{`
         * { box-sizing: border-box; }
+        
+        /* THE ULTIMATE LOCK: Absolutely clean 100% width, no horizontal scrolling */
         html, body {
           overflow-x: hidden;
           margin: 0;
           padding: 0;
+          width: 100%;
+          background-color: #050810;
         }
 
         .hs-section {
@@ -366,24 +373,37 @@ function HomeParallax() {
           min-height: 100vh;
           overflow: hidden;
           flex-shrink: 0;
+          background-color: #050810;
+        }
+
+        /* OVERSIZED ONLY ON DESKTOP to handle the mouse parallax bleeding */
+        .hs-parallax-img {
+          position: absolute; 
+          left: -5%; 
+          top: -10%;
+          width: 110%; 
+          height: 120%; 
+          object-fit: cover; 
+          will-change: transform;
         }
 
         @media (max-width: 768px) {
           .hs-section { height: auto; min-height: 100vh; }
+          
+          /* SNAPS PERFECTLY TO EDGES ON MOBILE */
           .hs-parallax-img { 
-            height: 115%; 
-            top: -5%; 
-            object-position: 25% bottom; 
+            left: 0 !important; 
+            width: 100% !important; 
+            top: 0 !important;
+            height: 115% !important;
+            object-position: center top; 
           }
+          
           .animate-strongPulse, .animate-prizeGlow { animation: none; }
           .hs-hero-logo { width: clamp(200px, 75vw, 420px) !important; }
         }
 
         .hs-section--auto { height: auto; min-height: 100vh; }
-        .hs-parallax-img {
-          position: absolute; left: 0; right: 0; top: -15%;
-          width: 100%; height: 130%; object-fit: cover; will-change: transform;
-        }
 
         @keyframes scrollHint {
           0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
@@ -441,35 +461,72 @@ function HomeParallax() {
 
       <SideScrollMenu scrollToPage={scroll} />
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative" }}>
 
         {/* ── PAGE 1 — HERO ── */}
         <section ref={page1Ref} className="hs-section">
-          <animated.img src="/mountain.png" alt="Mountains" className="hs-parallax-img" style={{ zIndex: 1, transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(${mx * -10}px, ${my * -10}px)`) }} />
-          <animated.img src="/sun.png" alt="Sun" style={{ position: "absolute", top: "8%", left: "50%", width: "clamp(180px, 18vw, 280px)", zIndex: 5, transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(calc(-50% + ${mx * -18}px), ${my * -18}px)`) }} />
 
-          {/* HIDES TREES/SAMURAI ON MOBILE ONLY */}
+          {/* MOUNTAINS */}
+          <animated.img src="/mountain.png" alt="Mountains" className="hs-parallax-img"
+            style={{
+              zIndex: 1,
+              transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(${mx * -10 * pMult}px, ${my * -10 * pMult}px)`)
+            }}
+          />
+
+          {/* SUN */}
+          <animated.img src="/sun.png" alt="Sun"
+            style={{
+              position: "absolute", top: "8%", left: "50%", width: "clamp(180px, 18vw, 280px)", zIndex: 5,
+              transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(calc(-50% + ${mx * -18 * pMult}px), ${my * -18 * pMult}px)`)
+            }}
+          />
+
+          {/* DESKTOP ONLY: Samurai foreground */}
           {!isMobile && (
-            <animated.img
-              src="/trees.png"
-              alt="Trees"
-              className="hs-parallax-img"
+            <animated.img src="/trees.png" alt="Trees" className="hs-parallax-img"
               style={{
-                zIndex: 20,
-                opacity: 0.85,
-                transform: to([heroSpring.mx, heroSpring.my, spring1.shift], (mx, my, s) => `translate(${mx * 20}px, calc(${my * 20}px + ${s}px))`)
+                zIndex: 20, opacity: 0.85,
+                transform: to([heroSpring.mx, heroSpring.my, spring1.shift], (mx, my, s) => `translate(${mx * 20 * pMult}px, calc(${my * 20 * pMult}px + ${s}px))`)
               }}
             />
           )}
 
-          <animated.div style={{ position: "absolute", inset: 0, zIndex: 50, display: "flex", justifyContent: "center", alignItems: "flex-start", paddingTop: "22vh", transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(${mx * -5}px, ${my * -5}px)`) }}>
+          {/* MOBILE ONLY: Red Canopy foreground */}
+          {isMobile && (
+            <animated.img
+              src="/trees_phone.png"
+              alt="Mobile Canopy"
+              style={{
+                position: "absolute",
+                top: "-5%",
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top center",
+                zIndex: 20,
+                pointerEvents: "none",
+                transform: spring1.shift.to((s) => `translateY(${s * 0.5}px)`) /* ONLY VERTICAL MOVEMENT */
+              }}
+            />
+          )}
+
+          {/* LOGO */}
+          <animated.div style={{
+            position: "absolute", inset: 0, zIndex: 50, display: "flex", justifyContent: "center", alignItems: "flex-start", paddingTop: "22vh",
+            transform: to([heroSpring.mx, heroSpring.my], (mx, my) => `translate(${mx * -5 * pMult}px, ${my * -5 * pMult}px)`)
+          }}>
             <img src="/logo2.png" alt="HackStreet Logo" className="hs-hero-logo" style={{ width: "clamp(260px, 48vw, 580px)", filter: "invert(100%) sepia(100%) saturate(400%) hue-rotate(180deg) brightness(200%) contrast(100%) drop-shadow(0 0 3px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(0,100,255,0.5))" }} />
           </animated.div>
+
+          {/* TIMER */}
           <div style={{ position: "absolute", bottom: "clamp(60px,12vh,120px)", left: 0, right: 0, display: "flex", justifyContent: "center", zIndex: 55 }}>
             <div style={{ transform: "scale(0.9)", pointerEvents: "auto" }}>
               <CountdownTimer />
             </div>
           </div>
+
           <div style={{ position: "absolute", bottom: "3vh", left: "50%", zIndex: 60, color: "rgba(255,255,255,0.5)", fontSize: "10px", letterSpacing: "4px", textTransform: "uppercase", fontFamily: "Georgia, serif", animation: "scrollHint 2s ease-in-out infinite" }}>scroll ↓</div>
         </section>
 
@@ -482,7 +539,7 @@ function HomeParallax() {
             <img src="/ab.png" alt="About HackStreet" style={{ width: "clamp(260px, 40vw, 600px)", filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.7))", marginBottom: "20px" }} />
 
             <div className="glassBox" style={{ width: "min(820px, 90vw)", padding: "30px 38px", borderRadius: "16px", backdropFilter: "blur(16px)", background: "rgba(10,15,25,0.35)", border: "1px solid rgba(120,220,255,0.25)", boxShadow: "0 0 30px rgba(0,255,255,0.15), inset 0 0 25px rgba(0,0,0,0.35)", color: "rgba(230,240,255,0.9)", fontSize: "clamp(15px,1.15vw,18px)", lineHeight: "1.8", fontFamily: "Georgia, serif" }}>
-              HackStreet is a 24 hour long running hackathon, being held on 4th and 5th of April. We call for hackers, artists, coders, designers, tech evangelists, creatives, and developers from all disciplines to take part to win awesome prizes and collaborate with other developers and gain immersive experiences. Throughout the weekend hackers at Hackstreet will have unique opportunities to learn from each other. We are determined to have an all-inclusive and diverse group of students joining us for the hackathon.
+              HackStreet 4.0 is an electrifying hackathon where innovators, developers, and creators unite to build groundbreaking solutions. Over an intense hacking period, participants collaborate, experiment, and transform bold ideas into impactful technology.<br /><br />Join us for 24 hours of creativity, coding, and innovation where technology meets imagination.
             </div>
           </div>
           <animated.img src="/about_trees.png" alt="Trees" className="hs-parallax-img" style={{ zIndex: 40, pointerEvents: "none", opacity: 0.9, transform: spring2.shift.to((s) => `translateY(${s * 1.4}px)`) }} />
