@@ -18,7 +18,7 @@ const timelineData = [
 const KANJI = ["侍", "武", "道", "剣", "力", "戦", "勇", "魂", "刃", "忍"];
 
 const faqs = [
-  { q: "Who can participate in HackStreet?", a: "HackStreet is open to all college students. You can participate individually or form a team of up to 4 members. Developers, designers, and innovators from all skill levels are welcome." },
+  { q: "Who can participate in HackStreet?", a: "HackStreet is open to all college students. You can participate individually or form a team of up to 3 members. Developers, designers, and innovators from all skill levels are welcome." },
   { q: "Is there any registration fee?", a: "No. HackStreet is completely free to participate in. Simply register before the deadline and you'll receive further details about the online event." },
   { q: "How will the hackathon be conducted?", a: "HackStreet will be conducted entirely online. All announcements, mentoring sessions, and submissions will take place through our official platforms, which will be shared with registered participants." },
   { q: "Can we start working on our project before the hackathon begins?", a: "No. All projects must be built during the official hacking period. However, you are free to brainstorm ideas, research technologies, and prepare beforehand." },
@@ -378,14 +378,15 @@ function HomeParallax() {
 
         /* OVERSIZED ONLY ON DESKTOP to handle the mouse parallax bleeding */
         .hs-parallax-img {
-          position: absolute; 
-          left: -5%; 
-          top: -10%;
-          width: 110%; 
-          height: 120%; 
-          object-fit: cover; 
-          will-change: transform;
-        }
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -15%;
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  will-change: transform;
+}
 
         @media (max-width: 768px) {
           .hs-section { height: auto; min-height: 100vh; }
@@ -459,9 +460,8 @@ function HomeParallax() {
         .group:hover .animate-shine { animation: shine 0.75s ease-in-out; }
       `}</style>
 
-      <SideScrollMenu scrollToPage={scroll} />
-
-      <div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative" }}>
+<div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative", overflowX: "hidden" }}>
+<SideScrollMenu scrollToPage={scroll} />
 
         {/* ── PAGE 1 — HERO ── */}
         <section ref={page1Ref} className="hs-section">
