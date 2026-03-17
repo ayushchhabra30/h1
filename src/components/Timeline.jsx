@@ -48,12 +48,14 @@ const Timeline = ({ items = [], className = '' }) => {
 
   return (
     <section className={`timeline-container ${className}`} ref={timelineRef}>
-      <div className="timeline-header">
-        <h2 className="timeline-title">
-          <span className="timeline-title-en">Event Timeline</span>
-          <span className="timeline-title-jp">行程表</span>
-        </h2>
-      </div>
+      <div className="timeline-title-wrapper">
+  <img
+    src="/event_timeline.png"
+    alt="Event Timeline"
+    className="timeline-title-img"
+  />
+  <span className="timeline-title-jp">行程表</span>
+</div>
 
       <div className="timeline-wrapper">
         {/* Center vertical line */}

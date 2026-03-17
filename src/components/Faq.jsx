@@ -57,7 +57,7 @@ export default function FAQ() {
           inset: 0;
           background-image: url('/bg_faqs.jpeg');
           background-size: cover;
-          background-position: center top;
+          background-position: center 30%;
           z-index: 0;
         }
 
@@ -220,6 +220,16 @@ export default function FAQ() {
           color: #4e2005;
           line-height: 1.68;
         }
+          .faq-title-img {
+  width: 500px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+
+  /* remove glow */
+  filter: none;
+}
       `}</style>
 
       <section className="faq-section">
@@ -228,10 +238,14 @@ export default function FAQ() {
         <div className="faq-moon-glow" />
 
         <div className="faq-title-wrap">
-          <h2 className="faq-title">Frequently Asked Questions</h2>
-          <span className="faq-title-sub">よくある質問</span>
-          <div className="faq-title-rule" />
-        </div>
+  <img
+    src="/faq_title.png"
+    //alt="Frequently Asked Questions"
+    className="faq-title-img"
+  />
+  <span className="faq-title-sub">よくある質問</span>
+  <div className="faq-title-rule" />
+</div>
 
         {/* THE SCROLL */}
         <div className="faq-scroll-wrap">
