@@ -72,14 +72,13 @@ function FAQ({ sectionRef }) {
           margin-bottom: 56px;
         }
 
-        .faq-title {
-          font-family: 'Cinzel', serif;
-          font-size: clamp(24px, 4vw, 52px);
-          font-weight: 900;
-          letter-spacing: 0.2em;
-          color: #fff;
-          text-transform: uppercase;
-          text-shadow: 0 0 18px rgba(120,160,255,0.6), 0 0 40px rgba(120,160,255,0.25), 0 2px 10px rgba(0,0,0,0.9);
+        /* STRIPPED OUT THE FILTERS SO IT DISPLAYS YOUR EXACT RAW IMAGE */
+        .faq-title-img {
+          width: 85%;
+          max-width: 600px;
+          height: auto;
+          margin: 0 auto;
+          display: block;
         }
 
         .faq-title-rule {
@@ -211,7 +210,11 @@ function FAQ({ sectionRef }) {
       <section ref={sectionRef} className="faq-section">
         <div className="faq-bg" />
         <div className="faq-title-wrap">
-          <h2 className="faq-title">Frequently Asked Questions</h2>
+          <img
+            src="/FAQ.png"
+            alt="Frequently Asked Questions"
+            className="faq-title-img"
+          />
           <div className="faq-title-rule" />
         </div>
         <div className="faq-lanterns">
@@ -350,7 +353,6 @@ function HomeParallax() {
     refs[to]?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 💥 THE FIX: This kills horizontal movement on mobile!
   const pMult = isMobile ? 0 : 1;
 
   return (
@@ -358,7 +360,6 @@ function HomeParallax() {
       <style>{`
         * { box-sizing: border-box; }
         
-        /* THE ULTIMATE LOCK: Absolutely clean 100% width, no horizontal scrolling */
         html, body {
           overflow-x: hidden;
           margin: 0;
@@ -376,22 +377,20 @@ function HomeParallax() {
           background-color: #050810;
         }
 
-        /* OVERSIZED ONLY ON DESKTOP to handle the mouse parallax bleeding */
         .hs-parallax-img {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -15%;
-  width: 100%;
-  height: 130%;
-  object-fit: cover;
-  will-change: transform;
-}
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: -15%;
+          width: 100%;
+          height: 130%;
+          object-fit: cover;
+          will-change: transform;
+        }
 
         @media (max-width: 768px) {
           .hs-section { height: auto; min-height: 100vh; }
           
-          /* SNAPS PERFECTLY TO EDGES ON MOBILE */
           .hs-parallax-img { 
             left: 0 !important; 
             width: 100% !important; 
@@ -460,8 +459,8 @@ function HomeParallax() {
         .group:hover .animate-shine { animation: shine 0.75s ease-in-out; }
       `}</style>
 
-<div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative", overflowX: "hidden" }}>
-<SideScrollMenu scrollToPage={scroll} />
+      <div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative", overflowX: "hidden" }}>
+        <SideScrollMenu scrollToPage={scroll} />
 
         {/* ── PAGE 1 — HERO ── */}
         <section ref={page1Ref} className="hs-section">
@@ -507,7 +506,7 @@ function HomeParallax() {
                 objectPosition: "top center",
                 zIndex: 20,
                 pointerEvents: "none",
-                transform: spring1.shift.to((s) => `translateY(${s * 0.5}px)`) /* ONLY VERTICAL MOVEMENT */
+                transform: spring1.shift.to((s) => `translateY(${s * 0.5}px)`)
               }}
             />
           )}
@@ -535,7 +534,7 @@ function HomeParallax() {
         {/* ── PAGE 2 — ABOUT ── */}
         <section ref={page2Ref} className="hs-section">
           <animated.img src="/about_bg.png" alt="Lake" className="hs-parallax-img" style={{ zIndex: 1, transform: spring2.shift.to((s) => `translateY(${s}px)`) }} />
-          <div style={{ position: "absolute", inset: 0, zIndex: 50, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: "8vh", textAlign: "center", paddingLeft: "20px", paddingRight: "20px" }}>
+          <div style={{ position: "absolute", inset: 0, zIndex: 50, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: "0vh", textAlign: "center", paddingLeft: "20px", paddingRight: "20px" }}>
             <img src="/ab.png" alt="About HackStreet" style={{ width: "clamp(260px, 40vw, 600px)", filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.7))", marginBottom: "20px" }} />
 
             <div className="glassBox" style={{ width: "min(820px, 90vw)", padding: "30px 38px", borderRadius: "16px", backdropFilter: "blur(16px)", background: "rgba(10,15,25,0.35)", border: "1px solid rgba(120,220,255,0.25)", boxShadow: "0 0 30px rgba(0,255,255,0.15), inset 0 0 25px rgba(0,0,0,0.35)", color: "rgba(230,240,255,0.9)", fontSize: "clamp(15px,1.15vw,18px)", lineHeight: "1.8", fontFamily: "Georgia, serif" }}>
