@@ -18,7 +18,7 @@ const timelineData = [
 const KANJI = ["侍", "武", "道", "剣", "力", "戦", "勇", "魂", "刃", "忍"];
 
 const faqs = [
-  { q: "Who can participate in HackStreet?", a: "HackStreet is open to all college students. You can participate individually or form a team of up to 4 members. Developers, designers, and innovators from all skill levels are welcome." },
+  { q: "Who can participate in HackStreet?", a: "HackStreet is open to all college students. You can participate individually or form a team of up to 3 members. Developers, designers, and innovators from all skill levels are welcome." },
   { q: "Is there any registration fee?", a: "No. HackStreet is completely free to participate in. Simply register before the deadline and you'll receive further details about the online event." },
   { q: "How will the hackathon be conducted?", a: "HackStreet will be conducted entirely online. All announcements, mentoring sessions, and submissions will take place through our official platforms, which will be shared with registered participants." },
   { q: "Can we start working on our project before the hackathon begins?", a: "No. All projects must be built during the official hacking period. However, you are free to brainstorm ideas, research technologies, and prepare beforehand." },
@@ -378,14 +378,15 @@ function HomeParallax() {
 
         /* OVERSIZED ONLY ON DESKTOP to handle the mouse parallax bleeding */
         .hs-parallax-img {
-          position: absolute; 
-          left: -5%; 
-          top: -10%;
-          width: 110%; 
-          height: 120%; 
-          object-fit: cover; 
-          will-change: transform;
-        }
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -15%;
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  will-change: transform;
+}
 
         @media (max-width: 768px) {
           .hs-section { height: auto; min-height: 100vh; }
@@ -459,9 +460,8 @@ function HomeParallax() {
         .group:hover .animate-shine { animation: shine 0.75s ease-in-out; }
       `}</style>
 
-      <SideScrollMenu scrollToPage={scroll} />
-
-      <div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative" }}>
+<div style={{ display: "flex", flexDirection: "column", width: "100%", position: "relative", overflowX: "hidden" }}>
+<SideScrollMenu scrollToPage={scroll} />
 
         {/* ── PAGE 1 — HERO ── */}
         <section ref={page1Ref} className="hs-section">
@@ -596,9 +596,9 @@ function HomeParallax() {
                 </div>
                 <div className="w-full lg:w-3/5 flex flex-col gap-4 pb-8">
                   {[
-                    { rank: "WINNER", desc: "The Grand Prize will be given to a project that outstands all other submissions.", amount: "₹4000", color: "from-yellow-500/40", textColor: "text-yellow-500", glow: "0_0_25px_rgba(234,179,8,1)" },
-                    { rank: "1ST RUNNER UP", desc: "1st Runner-up prize will be given to the second best project of the hackathon.", amount: "₹3000", color: "from-slate-400/30", textColor: "text-slate-300", glow: "0_0_25px_rgba(203,213,225,0.9)" },
-                    { rank: "2ND RUNNER UP", desc: "2nd Runner-up project of the hackathon will win some awesome prizes.", amount: "₹2000", color: "from-orange-800/30", textColor: "text-orange-700", glow: "0_0_25px_rgba(194,65,12,0.9)" },
+                    { rank: "WINNER", desc: "The Grand Prize will be given to a project that outstands all other submissions.", amount: "₹5500", color: "from-yellow-500/40", textColor: "text-yellow-500", glow: "0_0_25px_rgba(234,179,8,1)" },
+                    { rank: "1ST RUNNER UP", desc: "1st Runner-up prize will be given to the second best project of the hackathon.", amount: "₹4500", color: "from-slate-400/30", textColor: "text-slate-300", glow: "0_0_25px_rgba(203,213,225,0.9)" },
+                    { rank: "2ND RUNNER UP", desc: "2nd Runner-up project of the hackathon will win some awesome prizes.", amount: "₹3000", color: "from-orange-800/30", textColor: "text-orange-700", glow: "0_0_25px_rgba(194,65,12,0.9)" },
                   ].map((prize, i) => (
                     <div key={i} className="relative group transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.04]" style={{ animationDelay: `${i * 0.1}s`, animationFillMode: "forwards", clipPath: "polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%)" }}>
                       <div className={`bg-gradient-to-r ${prize.color} to-transparent p-[2px] transition-all duration-500`}>

@@ -7,37 +7,37 @@ import "./Themes.css";
 const themesData = [
   {
     id: 1,
-    title: "EdTech",
+    title: "⁠Digital Health and Smart Healthcare",
     tagline: "Innovate solutions to transform learning",
-    description: "Build technology-driven solutions that improve education, learning experiences, accessibility, and skill development.",
-    icon: "📘",
+    description: "Develop technology that improves healthcare accessibility, mental wellness, and overall well-being.",
+    icon: "🏥",
     variant: "theme-card--shadow",
    
   },
   {
     id: 2,
-    title: "Blockchain & Web3",
+    title: "Sustainability & Climate Tech",
     tagline: "Innovate with blockchain and Web3 technologies",
-    description: "Create decentralized applications, smart contracts, secure systems, and next-generation Web3 solutions.",
-    icon: "⛓️",
+    description: "Create solutions that promote environmental sustainability and responsible resource management.",
+    icon: "🌍",
     variant: "theme-card--crimson",
     
   },
   {
     id: 3,
-    title: "HealthTech",
+    title: "Build for Bharat",
     tagline: "Wellness Through Technology",
-    description: "Develop innovative solutions for healthcare, fitness, mental well-being, diagnostics, and medical accessibility.",
-    icon: "🩺",
+    description: "Use technology to solve meaningful challenges faced by rural communities, small towns, and underserved populations across India.",
+    icon: "🇮🇳",
     variant: "",
    
   },
   {
     id: 4,
-    title: "Sustainability",
+    title: "Cybersecurity & Privacy",
     tagline: "Create tech for a sustainable planet",
-    description: "Design solutions focused on climate action, renewable energy, waste management, and environmental protection.",
-    icon: "🌱",
+    description: "Develop systems that protect digital information, systems, and user privacy in an increasingly connected world",
+    icon: "🔐",
     variant: "theme-card--shadow",
    
   },
@@ -45,7 +45,7 @@ const themesData = [
     id: 5,
     title: "Open Innovation",
     tagline: "Explore ideas beyond boundaries",
-    description: "Work on any innovative idea that does not fit into other categories. Creativity and originality are encouraged.",
+    description: "Participants can build any idea without restriction, encouraging creativity and experimentation",
     icon: "✨",
     variant: "theme-card--crimson",
    
