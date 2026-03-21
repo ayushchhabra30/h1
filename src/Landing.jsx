@@ -72,7 +72,6 @@ function FAQ({ sectionRef }) {
           margin-bottom: 56px;
         }
 
-        /* STRIPPED OUT THE FILTERS SO IT DISPLAYS YOUR EXACT RAW IMAGE */
         .faq-title-img {
           width: 85%;
           max-width: 600px;
@@ -424,11 +423,18 @@ function HomeParallax() {
           20% { opacity: 1; }
           100% { transform: translateX(150%) rotate(25deg); opacity: 0; }
         }
-          @keyframes pulseRed {
-  0% { box-shadow: 0 0 8px rgba(255,0,0,0.4); }
-  50% { box-shadow: 0 0 20px rgba(255,0,0,0.9); }
-  100% { box-shadow: 0 0 8px rgba(255,0,0,0.4); }
-}
+
+        /* 💥 REFINED CONTINUOUS GLOW ANIMATION */
+        @keyframes pulseRed {
+          0% { box-shadow: 0 0 12px rgba(255, 0, 0, 0.4), inset 0 0 10px rgba(255, 0, 0, 0.2); }
+          50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), inset 0 0 15px rgba(255, 0, 0, 0.5); }
+          100% { box-shadow: 0 0 12px rgba(255, 0, 0, 0.4), inset 0 0 10px rgba(255, 0, 0, 0.2); }
+        }
+
+        /* Class that applies the continuous glow */
+        .btn-glow {
+          animation: pulseRed 2s infinite ease-in-out;
+        }
 
         .glassBox {
           position: relative;
@@ -469,40 +475,44 @@ function HomeParallax() {
 
         {/* ── PAGE 1 — HERO ── */}
         <section ref={page1Ref} className="hs-section">
-          
-<a
-  href="https://unstop.com/your-link"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{
-    position: "absolute",
-    top: "30px",
-    right: "40px",
-    padding: "12px 26px",
-    background: "transparent",
-    color: "#ff2e2e",
-    fontWeight: "bold",
-    borderRadius: "6px",
-    textDecoration: "none",
-    border: "2px solid rgba(255, 0, 0, 0.7)",
-    boxShadow: "0 0 12px rgba(255, 0, 0, 0.4)",
-    zIndex: 9999,
-    transition: "all 0.3s ease",
-    letterSpacing: "1px",
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.background = "rgba(255, 0, 0, 0.15)";
-    e.target.style.boxShadow = "0 0 25px rgba(255, 0, 0, 0.8)";
-    e.target.style.transform = "scale(1.05)";
-  }}
-  onMouseLeave={(e) => {
-    e.target.style.background = "transparent";
-    e.target.style.boxShadow = "0 0 12px rgba(255, 0, 0, 0.4)";
-    e.target.style.transform = "scale(1)";
-  }}
->
-  Register Now
-</a>
+
+          {/* 💥 UPDATED REGISTER BUTTON 💥 */}
+          <a
+            href="https://unstop.com/your-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            /* Added glassBox for hover slash, and btn-glow for continuous pulse! */
+            className="glassBox btn-glow"
+            style={{
+              position: "absolute",
+              top: "30px",
+              right: "40px",
+              padding: "12px 26px",
+              background: "rgba(10, 15, 25, 0.4)",
+              backdropFilter: "blur(10px)",
+              color: "#ff2e2e",
+              fontWeight: "bold",
+              borderRadius: "6px",
+              textDecoration: "none",
+              border: "2px solid rgba(255, 0, 0, 0.7)",
+              /* Removed manual box-shadow so the animation can control it! */
+              zIndex: 9999,
+              transition: "all 0.3s ease",
+              letterSpacing: "1px",
+              overflow: "hidden", /* Crucial: Traps the light slash inside the button */
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = "rgba(255, 0, 0, 0.15)";
+              e.target.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = "rgba(10, 15, 25, 0.4)";
+              e.target.style.transform = "scale(1)";
+            }}
+          >
+            Register Now
+          </a>
+
           {/* MOUNTAINS */}
           <animated.img src="/mountain.png" alt="Mountains" className="hs-parallax-img"
             style={{
